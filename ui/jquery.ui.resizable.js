@@ -154,7 +154,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 					axis = $(this.handles[i], this.element);
 
 					//Checking the correct pad and border
-					padWrapper = /sw|ne|nw|se|n|s/.test(i) ? axis.outerHeight() : axis.outerWidth();
+					padWrapper = /sw|ne|nw|se|n|s/.test(i) ? axis.outerHeight() + 1 : axis.outerWidth();
 
 					//The padding type i have to apply...
 					padPos = [ "padding",
@@ -178,8 +178,12 @@ $.widget("ui.resizable", $.ui.mouse, {
 		//TODO: make renderAxis a prototype function
 		this._renderAxis(this.element);
 
-		this._handles = $(".ui-resizable-handle", this.element)
-			.disableSelection();
+		var h = [];
+		$.each(this.handles, function(){
+			h.push(this.get(0));
+		});
+		this._handles = $('.ui-resizable-handle', this.element);
+		$.merge(this._handles, h).disableSelection();
 
 		//Matching axis name
 		this._handles.mouseover(function() {
