@@ -551,20 +551,31 @@ $.widget("ui.resizable", $.ui.mouse, {
 
 			prel = this._proportionallyResizeElements[i];
 
-			if (!this.borderDif) {
-				this.borderDif = [];
-				borders = [prel.css("borderTopWidth"), prel.css("borderRightWidth"), prel.css("borderBottomWidth"), prel.css("borderLeftWidth")];
-				paddings = [prel.css("paddingTop"), prel.css("paddingRight"), prel.css("paddingBottom"), prel.css("paddingLeft")];
+			if($.support.boxSizing && element.css('boxSizing') === 'border-box'){
 
-				for ( j = 0; j < borders.length; j++ ) {
-					this.borderDif[ j ] = ( parseInt( borders[ j ], 10 ) || 0 ) + ( parseInt( paddings[ j ], 10 ) || 0 );
+				prel.css({
+					height: element.height() || 0,
+					width: element.width() || 0
+				});
+
+			} else {
+
+				if (!this.borderDif) {
+					this.borderDif = [];
+					borders = [prel.css("borderTopWidth"), prel.css("borderRightWidth"), prel.css("borderBottomWidth"), prel.css("borderLeftWidth")];
+					paddings = [prel.css("paddingTop"), prel.css("paddingRight"), prel.css("paddingBottom"), prel.css("paddingLeft")];
+
+					for ( j = 0; j < borders.length; j++ ) {
+						this.borderDif[ j ] = ( parseInt( borders[ j ], 10 ) || 0 ) + ( parseInt( paddings[ j ], 10 ) || 0 );
+					}
 				}
-			}
 
-			prel.css({
-				height: (element.height() - this.borderDif[0] - this.borderDif[2]) || 0,
-				width: (element.width() - this.borderDif[1] - this.borderDif[3]) || 0
-			});
+				prel.css({
+					height: (element.height() - this.borderDif[0] - this.borderDif[2]) || 0,
+					width: (element.width() - this.borderDif[1] - this.borderDif[3]) || 0
+				});
+
+			}
 
 		}
 
