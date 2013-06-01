@@ -348,7 +348,7 @@ $.widget( "ui.tabs", {
 		this.panels.not( this._getPanelForTab( this.active ) )
 			.css({
 				position: 'absolute',
-				left: '-999em'
+				top: '-999em'
 			})
 			.attr({
 				"aria-expanded": "false",
@@ -368,7 +368,7 @@ $.widget( "ui.tabs", {
 			this._getPanelForTab( this.active )
 				.css({
 					position: 'static',
-					left: 'auto'
+					top: 'auto'
 				})
 				.attr({
 					"aria-expanded": "true",
@@ -603,7 +603,7 @@ $.widget( "ui.tabs", {
 			} else {
 				toShow.css({
 					position: 'static',
-					left: 'auto'
+					top: 'auto'
 				});
 				complete();
 			}
@@ -619,7 +619,7 @@ $.widget( "ui.tabs", {
 			eventData.oldTab.closest( "li" ).removeClass( "ui-tabs-active ui-state-active" );
 			toHide.css({
 				position: 'absolute',
-				left: '-999em'
+				top: '-999em'
 			});
 			show();
 		}
